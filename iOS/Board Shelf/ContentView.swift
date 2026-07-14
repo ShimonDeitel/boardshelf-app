@@ -122,7 +122,7 @@ struct ItemFormView: View {
         self.mode = mode
         switch mode {
         case .add:
-            _draft = State(initialValue: Game(id: UUID(), title: String = "", players: Int = 0, lastPlayed: Date = Date(), notes: String = ""))
+            _draft = State(initialValue: Game(id: UUID(), title: "", players: 0, lastPlayed: Date(), notes: ""))
         case .edit(let item):
             _draft = State(initialValue: item)
         }
