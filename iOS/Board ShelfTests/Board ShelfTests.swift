@@ -1,8 +1,8 @@
 import XCTest
-@testable import Board Shelf
+@testable import Board_Shelf
 
 @MainActor
-final class Board ShelfTests: XCTestCase {
+final class BoardShelfTests: XCTestCase {
     func testSeedDataBelowFreeLimit() {
         XCTAssertLessThan(Store.seedData.count, Store.freeLimit)
     }
@@ -10,14 +10,14 @@ final class Board ShelfTests: XCTestCase {
     func testAddIncreasesCount() {
         let store = Store()
         let before = store.items.count
-        let item = Game(id: UUID(), title: String = "", players: Int = 0, lastPlayed: Date = Date(), notes: String = "")
+        let item = Game(id: UUID(), title: "", players: 0, lastPlayed: Date(), notes: "")
         store.add(item)
         XCTAssertEqual(store.items.count, before + 1)
     }
 
     func testDeleteDecreasesCount() {
         let store = Store()
-        let item = Game(id: UUID(), title: String = "", players: Int = 0, lastPlayed: Date = Date(), notes: String = "")
+        let item = Game(id: UUID(), title: "", players: 0, lastPlayed: Date(), notes: "")
         store.add(item)
         let before = store.items.count
         store.delete(item)
@@ -34,7 +34,7 @@ final class Board ShelfTests: XCTestCase {
         let store = Store()
         store.isPro = false
         for _ in 0..<(Store.freeLimit) {
-            store.add(Game(id: UUID(), title: String = "", players: Int = 0, lastPlayed: Date = Date(), notes: String = ""))
+            store.add(Game(id: UUID(), title: "", players: 0, lastPlayed: Date(), notes: ""))
         }
         XCTAssertFalse(store.canAddMore)
     }
@@ -43,14 +43,14 @@ final class Board ShelfTests: XCTestCase {
         let store = Store()
         store.isPro = true
         for _ in 0..<(Store.freeLimit + 5) {
-            store.add(Game(id: UUID(), title: String = "", players: Int = 0, lastPlayed: Date = Date(), notes: String = ""))
+            store.add(Game(id: UUID(), title: "", players: 0, lastPlayed: Date(), notes: ""))
         }
         XCTAssertTrue(store.canAddMore)
     }
 
     func testUpdateModifiesItem() {
         let store = Store()
-        var item = Game(id: UUID(), title: String = "", players: Int = 0, lastPlayed: Date = Date(), notes: String = "")
+        var item = Game(id: UUID(), title: "", players: 0, lastPlayed: Date(), notes: "")
         store.add(item)
         item.title = "Updated"
         store.update(item)
@@ -59,7 +59,7 @@ final class Board ShelfTests: XCTestCase {
 
     func testDeleteAtOffsets() {
         let store = Store()
-        let item = Game(id: UUID(), title: String = "", players: Int = 0, lastPlayed: Date = Date(), notes: String = "")
+        let item = Game(id: UUID(), title: "", players: 0, lastPlayed: Date(), notes: "")
         store.add(item)
         if let idx = store.items.firstIndex(where: { $0.id == item.id }) {
             store.delete(at: IndexSet(integer: idx))
